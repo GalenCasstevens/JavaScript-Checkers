@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Checkers</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="board">
+      <table>
+        <tr id="row1">
+          <td class="black"><div class="playerOnePiece checkerPiece"><i class="fas fa-crown p1Crown"></i></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+        </tr>
+        <tr id="row2">
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+        </tr>
+        <tr id="row3">
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerOnePiece checkerPiece"></div></td>
+          <td class="white"></td>
+        </tr>
+        <tr id="row4">
+          <td class="white"></td>
+          <td class="black"></td>
+          <td class="white"></td>
+          <td class="black"></td>
+          <td class="white"></td>
+          <td class="black"></td>
+          <td class="white"></td>
+          <td class="black"></td>
+        </tr>
+        <tr id="row5">
+          <td class="black"></td>
+          <td class="white"></td>
+          <td class="black"></td>
+          <td class="white"></td>
+          <td class="black"></td>
+          <td class="white"></td>
+          <td class="black"></td>
+          <td class="white"></td>
+        </tr>
+        <tr id="row6">
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"><i class="fas fa-crown p2Crown"></i></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+        </tr>
+        <tr id="row7">
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+          <td class="white"></td>
+        </tr>
+        <tr id="row8">
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+          <td class="white"></td>
+          <td class="black"><div class="playerTwoPiece checkerPiece"></div></td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="jumpedContainer">
+      <h2>Jumped Pieces</h2>
+      <div id="jumpedPieces1">
+
+      </div>
+      <div id="jumpedPieces2">
+
+      </div>
+    </div>
+    <script src="./js/checkers.js" charset="utf-8"></script>
+  </body>
+</html>
