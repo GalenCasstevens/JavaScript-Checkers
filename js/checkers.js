@@ -1,3 +1,5 @@
+var checkerPieces
+
 window.onload = init;
 
 function init() {
@@ -17,12 +19,13 @@ function init() {
   var gameOver = false;
   var p1Move;
   var p2Move;
-  var checkerPieces = document.getElementsByClassName("checkerPiece");
+  checkerPieces = document.getElementsByClassName("checkerPiece");
 
   for(var i = 0; i < checkerPieces.length; i++) {
     checkerPieces[i].onclick = selectPiece;
+    // checkerPieces[i].onmouseover = hoverPiece;
   }
-  // var playerOnePieces = document.getElementsByClassName("playerOnePiece");
+
   displayBoard(board, boardSize);
   console.log(checkerPieces[1]);
 
@@ -37,12 +40,33 @@ function init() {
   }
 }
 
+// function hoverPiece(eventObj) {
+//   var piece = eventObj.target;
+//
+//   piece.style.width = "84px";
+//   piece.style.height = "84px";
+//   piece.style.border = "3px solid #FFF";
+// }
+
 function selectPiece(eventObj) {
   var piece = eventObj.target;
+  deselectPieces(piece);
 
   piece.classList.add('selectedPiece');
-  piece.style.width = "84px";
-  piece.style.height = "84px";
+  // piece.style.width = "84px";
+  // piece.style.height = "84px";
+
+  console.log(piece.classList.contains('selectedPiece'));
+}
+
+function deselectPieces(piece) {
+  for(var i = 0; i < checkerPieces.length; i++) {
+    if(checkerPieces[i].id != piece.id) {
+      checkerPieces[i].classList.remove('selectedPiece');
+      // checkerPieces[i].style.width = "90px";
+      // checkerPieces[i].style.height = "90px";
+    }
+  }
 }
 
 function displayBoard(board, boardSize) {

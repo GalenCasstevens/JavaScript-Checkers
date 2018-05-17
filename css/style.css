@@ -24,6 +24,11 @@ td.black {
 td.white {
   background-color: #FFF;
 }
+.selectedPiece {
+  border: 3px solid yellow;
+  width: 84px;
+  height: 84px;
+}
 td div.playerOnePiece {
   width: 90px;
   height: 90px;
@@ -72,8 +77,8 @@ div#jumpedPieces1 {
 }
 .selectedPiece {
   border: 3px solid yellow;
-  width: 84px;
-  height: 84px;
+  width: 84px !important;
+  height: 84px !important;
 }
 .p1Crown {
   vertical-align: middle;
