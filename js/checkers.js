@@ -1,4 +1,5 @@
-var checkerPieces
+var checkerPieces;
+var emptyTiles;
 
 window.onload = init;
 
@@ -20,24 +21,30 @@ function init() {
   var p1Move;
   var p2Move;
   checkerPieces = document.getElementsByClassName("checkerPiece");
+  emptyTiles = document.getElementsByClassName("emptyTile");
+  console.log(emptyTiles[2]);
 
   for(var i = 0; i < checkerPieces.length; i++) {
     checkerPieces[i].onclick = selectPiece;
     // checkerPieces[i].onmouseover = hoverPiece;
   }
 
+  for(var i = 0; i < emptyTiles.length; i++) {
+    emptyTiles[i].onclick = movePiece;
+  }
+
   displayBoard(board, boardSize);
   console.log(checkerPieces[1]);
 
-  while(!gameOver) {
-    if(everyOther % 2 === 0) {
-      p1Move = prompt("Please enter the coordinates of the piece you wish to move Player 1 (E.g. 02 for row 1, column 3): ");
-    } else {
-      p2Move = prompt("Please enter the coordinates of the piece you wish to move Player 2 (E.g. 02 for row 1, column 3): ");
-    }
-    everyOther++;
-    gameOver = true;
-  }
+  // while(!gameOver) {
+  //   if(everyOther % 2 === 0) {
+  //     p1Move = prompt("Please enter the coordinates of the piece you wish to move Player 1 (E.g. 02 for row 1, column 3): ");
+  //   } else {
+  //     p2Move = prompt("Please enter the coordinates of the piece you wish to move Player 2 (E.g. 02 for row 1, column 3): ");
+  //   }
+  //   everyOther++;
+  //   gameOver = true;
+  // }
 }
 
 // function hoverPiece(eventObj) {
@@ -66,6 +73,15 @@ function deselectPieces(piece) {
       // checkerPieces[i].style.width = "90px";
       // checkerPieces[i].style.height = "90px";
     }
+  }
+}
+
+function movePiece(eventObj) {
+  var tile = eventObj.target.children[0];
+  var selectedPiece = document.querySelector(".selectedPiece");
+  if(selectedPiece != null) {
+    console.log(selectedPiece);
+    tile.classList.add("playerOnePiece");
   }
 }
 
