@@ -52,12 +52,20 @@ function init() {
   //   // checkerPieces[i].onmouseover = hoverPiece;
   // }
 
-  for(var i = 0; i < checkerPieces.length; i++) {
-    checkerPieces[i].onmouseover = hoverPiece;
+  // for(var i = 0; i < checkerPieces.length; i++) {
+  //   checkerPieces[i].onmouseover = hoverPiece;
+  // }
+
+  for(var i = 0; i < movableTiles.length; i++) {
+    movableTiles[i].children[0].onclick = selectPiece;
   }
 
-  for(var i = 0; i < checkerPieces.length; i++) {
-    checkerPieces[i].onmouseout = unhoverPiece;
+  for(var i = 0; i < movableTiles.length; i++) {
+    movableTiles[i].children[0].onmouseover = hoverPiece;
+  }
+
+  for(var i = 0; i < movableTiles.length; i++) {
+    movableTiles[i].onmouseout = unhoverPiece;
   }
 
   for(var i = 0; i < movableTiles.length; i++) {
@@ -144,16 +152,16 @@ function unhoverPiece(eventObj) {
   }
 }
 
-// function selectPiece(eventObj) {
-//   var piece = eventObj.target;
-//   deselectPieces(piece);
-//
-//   piece.classList.add('selectedPiece');
-//   // piece.style.width = "84px";
-//   // piece.style.height = "84px";
-//
-//   // console.log(piece.classList.contains('selectedPiece'));
-// }
+function selectPiece(eventObj) {
+  var piece = eventObj.target;
+  deselectPieces(piece);
+
+  piece.classList.add('selectedPiece');
+  // piece.style.width = "84px";
+  // piece.style.height = "84px";
+
+  // console.log(piece.classList.contains('selectedPiece'));
+}
 
 function deselectPieces(piece) {
   for(var i = 0; i < checkerPieces.length; i++) {
