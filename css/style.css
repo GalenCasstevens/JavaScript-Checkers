@@ -24,11 +24,6 @@ td.black {
 td.white {
   background-color: #FFF;
 }
-.selectedPiece {
-  border: 3px solid yellow;
-  width: 84px;
-  height: 84px;
-}
 td div.playerOnePiece {
   width: 90px;
   height: 90px;
@@ -47,11 +42,11 @@ td div.playerTwoPiece {
   background: #1a1a1a;
   margin: auto;
 }
-td div.playerOnePiece:hover, td div.playerTwoPiece:hover {
+/* td div.playerOnePiece:hover, td div.playerTwoPiece:hover {
   border: 3px solid #FFF;
   width: 84px;
   height: 84px;
-}
+} */
 div#jumpedContainer {
   position: absolute;
   /* float: right; */
@@ -76,7 +71,7 @@ div#jumpedPieces1 {
   /* right: 20px; */
 }
 .selectedPiece {
-  border: 3px solid yellow;
+  border: 3px solid yellow !important;
   width: 84px !important;
   height: 84px !important;
 }

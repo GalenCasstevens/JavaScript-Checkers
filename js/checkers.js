@@ -1,5 +1,9 @@
 var checkerPieces;
+var movableTiles;
 var emptyTiles;
+var playerOnePieces;
+var playerTwoPieces;
+var playerTurn;
 
 window.onload = init;
 
@@ -8,33 +12,82 @@ function init() {
                 [1, 0, 1, 0, 1, 0, 1, 0],
                 [0, 1, 0, 1, 0, 1, 0, 1],
                 [1, 0, 1, 0, 1, 0, 1, 0],
-                [0, 0, 0, 0, 0, 0, 0, 1],
+                [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 2, 0, 2, 0, 2, 0, 2],
                 [2, 0, 2, 0, 2, 0, 2, 0],
                 [0, 2, 0, 2, 0, 2, 0, 2]
               ];
   var boardSize = 8;
-  var everyOther = 0;
+  playerTurn = 0;
   var gameWinner;
   var gameOver = false;
   var p1Move;
   var p2Move;
   checkerPieces = document.getElementsByClassName("checkerPiece");
+  movableTiles = document.getElementsByClassName("black");
+  playerOnePieces = document.getElementsByClassName("playerOnePiece");
+  playerTwoPieces = document.getElementsByClassName("playerTwoPiece");
   emptyTiles = document.getElementsByClassName("emptyTile");
-  console.log(emptyTiles[2]);
+
+  $(".checkerPiece").click(function(e) {
+    var piece = e.target;
+    deselectPieces(piece);
+
+    piece.classList.add('selectedPiece');
+
+     e.stopPropagation();
+  });
+
+  // $(".checkerPiece").hover(function(e) {
+  //   var piece = e.target;
+  //
+  //   piece.style.width = "84px";
+  //   piece.style.height = "84px";
+  //   piece.style.border = "3px solid #FFF";
+  // });
+
+  // for(var i = 0; i < checkerPieces.length; i++) {
+  //   checkerPieces[i].onclick = selectPiece;
+  //   // checkerPieces[i].onmouseover = hoverPiece;
+  // }
 
   for(var i = 0; i < checkerPieces.length; i++) {
-    checkerPieces[i].onclick = selectPiece;
-    // checkerPieces[i].onmouseover = hoverPiece;
+    checkerPieces[i].onmouseover = hoverPiece;
   }
 
-  for(var i = 0; i < emptyTiles.length; i++) {
-    emptyTiles[i].onclick = movePiece;
+  for(var i = 0; i < checkerPieces.length; i++) {
+    checkerPieces[i].onmouseout = unhoverPiece;
   }
 
-  displayBoard(board, boardSize);
-  console.log(checkerPieces[1]);
+  for(var i = 0; i < movableTiles.length; i++) {
+    // movePiece is called whenever a black tile is clicked
+    movableTiles[i].onclick = movePiece;
+  }
+
+  // displayBoard(board, boardSize);
+  // console.log(checkerPieces[1]);
+
+  // for(var i = 0; i < 10; i++) {
+  //   emptyTiles = document.getElementsByClassName("emptyTile");
+  //   console.log(emptyTiles.length);
+  //   if(playerTurn % 2 === 0) {
+  //     clickPiece();
+  //     mouseOverPiece();
+  //     mouseExitPiece();
+  //     clickEmptyTile();
+  //   } else {
+  //
+  //   }
+  // }
+
+  // while(!gameOver) {
+  //   if(playerTurn % 2 === 0) {
+  //
+  //   } else {
+  //
+  //   }
+  // }
 
   // while(!gameOver) {
   //   if(everyOther % 2 === 0) {
@@ -47,24 +100,60 @@ function init() {
   // }
 }
 
-// function hoverPiece(eventObj) {
-//   var piece = eventObj.target;
+// function clickPiece() {
+//   for(var j = 0; j < playerOnePieces.length; j++) {
+//     playerOnePieces[j].onclick = selectPiece;
+//   }
+// }
 //
-//   piece.style.width = "84px";
-//   piece.style.height = "84px";
-//   piece.style.border = "3px solid #FFF";
+// function mouseOverPiece() {
+//   for(var k = 0; k < playerOnePieces.length; k++) {
+//     playerOnePieces[k].onmouseover = hoverPiece;
+//   }
+// }
+//
+// function mouseExitPiece() {
+//   for(var m = 0; m < playerOnePieces.length; m++) {
+//     playerOnePieces[m].onmouseout = unhoverPiece;
+//   }
+// }
+//
+// function clickEmptyTile() {
+//   for(var n = 0; n < emptyTiles.length; n++) {
+//     emptyTiles[n].onclick = movePiece;
+//   }
 // }
 
-function selectPiece(eventObj) {
+function hoverPiece(eventObj) {
   var piece = eventObj.target;
-  deselectPieces(piece);
 
-  piece.classList.add('selectedPiece');
-  // piece.style.width = "84px";
-  // piece.style.height = "84px";
-
-  console.log(piece.classList.contains('selectedPiece'));
+  if(piece.classList.contains("checkerPiece")) {
+    piece.style.width = "84px";
+    piece.style.height = "84px";
+    piece.style.border = "3px solid #FFF";
+  }
 }
+
+function unhoverPiece(eventObj) {
+  var piece = eventObj.target;
+
+  if(piece.classList.contains("checkerPiece")) {
+    piece.style.width = "90px";
+    piece.style.height = "90px";
+    piece.style.border = "none";
+  }
+}
+
+// function selectPiece(eventObj) {
+//   var piece = eventObj.target;
+//   deselectPieces(piece);
+//
+//   piece.classList.add('selectedPiece');
+//   // piece.style.width = "84px";
+//   // piece.style.height = "84px";
+//
+//   // console.log(piece.classList.contains('selectedPiece'));
+// }
 
 function deselectPieces(piece) {
   for(var i = 0; i < checkerPieces.length; i++) {
@@ -77,11 +166,31 @@ function deselectPieces(piece) {
 }
 
 function movePiece(eventObj) {
-  var tile = eventObj.target.children[0];
+  var tile = eventObj.target.children[0]; // gets the div inside the clicked tile
   var selectedPiece = document.querySelector(".selectedPiece");
-  if(selectedPiece != null) {
-    console.log(selectedPiece);
-    tile.classList.add("playerOnePiece");
+
+  // console.log(tile);
+
+  if(selectedPiece != null && !tile.classList.contains("checkerPiece")) {
+    // console.log(selectedPiece);
+    if(selectedPiece.classList.contains("playerOnePiece")) {
+      tile.classList.add("playerOnePiece", "checkerPiece");
+      tile.parentNode.classList.remove("emptyTile");
+      selectedPiece.classList.remove("checkerPiece", "playerOnePiece", "selectedPiece");
+      // selectedPiece.style.cssText = null;
+      selectedPiece.removeAttribute("style");
+      selectedPiece.parentNode.classList.add("emptyTile");
+      // emptyTiles = document.getElementsByClassName("emptyTile");
+      // playerOnePieces = document.getElementsByClassName("playerOnePiece");
+      // checkerPieces = document.getElementsByClassName("checkerPiece");
+    } else if(selectedPiece.classList.contains("playerTwoPiece")) {
+      tile.classList.add("playerTwoPiece", "checkerPiece");
+      tile.parentNode.classList.remove("emptyTile");
+      selectedPiece.classList.remove("checkerPiece", "playerTwoPiece", "selectedPiece");
+      selectedPiece.removeAttribute("style");
+      selectedPiece.parentNode.classList.add("emptyTile");
+      // emptyTiles = document.getElementsByClassName("emptyTile");
+    }
   }
 }
 
