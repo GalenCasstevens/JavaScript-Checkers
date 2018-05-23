@@ -4,6 +4,7 @@ var emptyTiles;
 var playerOnePieces;
 var playerTwoPieces;
 var playerTurn;
+var counter = 0;
 
 window.onload = init;
 
@@ -30,14 +31,14 @@ function init() {
   playerTwoPieces = document.getElementsByClassName("playerTwoPiece");
   emptyTiles = document.getElementsByClassName("emptyTile");
 
-  $(".checkerPiece").click(function(e) {
-    var piece = e.target;
-    deselectPieces(piece);
-
-    piece.classList.add('selectedPiece');
-
-     e.stopPropagation();
-  });
+  // $(".checkerPiece").click(function(e) {
+  //   var piece = e.target;
+  //   deselectPieces(piece);
+  //
+  //   piece.classList.add('selectedPiece');
+  //
+  //    e.stopPropagation();
+  // });
 
   // $(".checkerPiece").hover(function(e) {
   //   var piece = e.target;
@@ -46,7 +47,7 @@ function init() {
   //   piece.style.height = "84px";
   //   piece.style.border = "3px solid #FFF";
   // });
-
+  //
   // for(var i = 0; i < checkerPieces.length; i++) {
   //   checkerPieces[i].onclick = selectPiece;
   //   // checkerPieces[i].onmouseover = hoverPiece;
@@ -58,8 +59,8 @@ function init() {
 
   for(var i = 0; i < movableTiles.length; i++) {
     movableTiles[i].children[0].onclick = selectPiece;
+    console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
   }
-
   for(var i = 0; i < movableTiles.length; i++) {
     movableTiles[i].children[0].onmouseover = hoverPiece;
   }
@@ -72,6 +73,30 @@ function init() {
     // movePiece is called whenever a black tile is clicked
     movableTiles[i].onclick = movePiece;
   }
+
+
+  // while(!gameOver) {
+  //   if(playerTurn % 2  === 0) {
+  //     for(var i = 0; i < movableTiles.length; i++) {
+  //       if(movableTiles[i].children[0].classList.contains("playerOnePiece")) {
+  //           movableTiles[i].children[0].onclick = selectPiece;
+  //           movableTiles[i].children[0].onmouseover = hoverPiece;
+  //           movableTiles[i].onmouseout = unhoverPiece;
+  //           movableTiles[i].onclick = movePiece;
+  //       }
+  //     }
+  //   } else if(playerTurn % 2  === 1) {
+  //     for(var i = 0; i < movableTiles.length; i++) {
+  //       if(movableTiles[i].children[0].classList.contains("playerTwoPiece")) {
+  //           movableTiles[i].children[0].onclick = selectPiece;
+  //           movableTiles[i].children[0].onmouseover = hoverPiece;
+  //           movableTiles[i].onmouseout = unhoverPiece;
+  //           movableTiles[i].onclick = movePiece;
+  //       }
+  //     }
+  //   }
+  //   gameOver === true;
+  // }
 
   // displayBoard(board, boardSize);
   // console.log(checkerPieces[1]);
@@ -188,6 +213,7 @@ function movePiece(eventObj) {
       // selectedPiece.style.cssText = null;
       selectedPiece.removeAttribute("style");
       selectedPiece.parentNode.classList.add("emptyTile");
+      playerTurn++;
       // emptyTiles = document.getElementsByClassName("emptyTile");
       // playerOnePieces = document.getElementsByClassName("playerOnePiece");
       // checkerPieces = document.getElementsByClassName("checkerPiece");
@@ -197,6 +223,7 @@ function movePiece(eventObj) {
       selectedPiece.classList.remove("checkerPiece", "playerTwoPiece", "selectedPiece");
       selectedPiece.removeAttribute("style");
       selectedPiece.parentNode.classList.add("emptyTile");
+      playerTurn++;
       // emptyTiles = document.getElementsByClassName("emptyTile");
     }
   }
