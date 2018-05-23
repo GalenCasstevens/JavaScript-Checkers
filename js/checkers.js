@@ -214,6 +214,22 @@ function movePiece(eventObj) {
       selectedPiece.removeAttribute("style");
       selectedPiece.parentNode.classList.add("emptyTile");
       playerTurn++;
+      for(var i = 0; i < movableTiles.length; i++) {
+        if(movableTiles[i].children[0].classList.contains("playerOnePiece")) {
+            movableTiles[i].children[0].onclick = null;
+            movableTiles[i].children[0].onmouseover = null;
+            movableTiles[i].onmouseout = null;
+            movableTiles[i].onclick = null;
+        } else if(movableTiles[i].children[0].classList.contains("playerTwoPiece")) {
+          movableTiles[i].children[0].onclick = selectPiece;
+          movableTiles[i].children[0].onmouseover = hoverPiece;
+          movableTiles[i].onmouseout = unhoverPiece;
+          movableTiles[i].onclick = movePiece;
+        }
+        // movableTiles[i].children[0].onclick = selectPiece;
+        // console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
+        // /
+      }
       // emptyTiles = document.getElementsByClassName("emptyTile");
       // playerOnePieces = document.getElementsByClassName("playerOnePiece");
       // checkerPieces = document.getElementsByClassName("checkerPiece");
@@ -224,9 +240,27 @@ function movePiece(eventObj) {
       selectedPiece.removeAttribute("style");
       selectedPiece.parentNode.classList.add("emptyTile");
       playerTurn++;
+
+      for(var i = 0; i < movableTiles.length; i++) {
+        if(movableTiles[i].children[0].classList.contains("playerTwoPiece")) {
+          movableTiles[i].children[0].onclick = null;
+          movableTiles[i].children[0].onmouseover = null;
+          movableTiles[i].onmouseout = null;
+          movableTiles[i].onclick = null;
+        } else if(movableTiles[i].children[0].classList.contains("playerOnePiece")) {
+          movableTiles[i].children[0].onclick = selectPiece;
+          movableTiles[i].children[0].onmouseover = hoverPiece;
+          movableTiles[i].onmouseout = unhoverPiece;
+          movableTiles[i].onclick = movePiece;
+        }
+        // movableTiles[i].children[0].onclick = selectPiece;
+        // console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
+        // /
+      }
       // emptyTiles = document.getElementsByClassName("emptyTile");
     }
   }
+  console.log("movePiece iterated");
 }
 
 function displayBoard(board, boardSize) {
