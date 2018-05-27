@@ -199,16 +199,22 @@ function deselectPieces(piece) {
 }
 
 function movePiece(eventObj) {
-  var tile = eventObj.target.children[0]; // gets the div inside the clicked tile
+  var tile = event.target;
+  var tilePiece = eventObj.target.children[0]; // gets the div inside the clicked tile
   var selectedPiece = document.querySelector(".selectedPiece");
 
   // console.log(tile);
 
-  if(selectedPiece != null && !tile.classList.contains("checkerPiece")) {
+  if(selectedPiece != null && !selectedPiece.classList.contains("king") && !tilePiece.classList.contains("checkerPiece")) {
     // console.log(selectedPiece);
-    if(selectedPiece.classList.contains("playerOnePiece")) {
-      tile.classList.add("playerOnePiece", "checkerPiece");
-      tile.parentNode.classList.remove("emptyTile");
+    console.log("Target tile row: " + tile.id.charAt(0));
+    console.log("Current tile row: " + selectedPiece.parentNode.id.charAt(0));
+    console.log("Target tile column: " + tile.id.charAt(1));
+    console.log("Current tile column " + selectedPiece.parentNode.id.charAt(1));
+    console.log(tile.id.charAt(0) - selectedPiece.parentNode.id.charAt(0));
+    if(selectedPiece.classList.contains("playerOnePiece") && (tile.id.charAt(0) - selectedPiece.parentNode.id.charAt(0) == 1)) {
+      tilePiece.classList.add("playerOnePiece", "checkerPiece");
+      tilePiece.parentNode.classList.remove("emptyTile");
       selectedPiece.classList.remove("checkerPiece", "playerOnePiece", "selectedPiece");
       // selectedPiece.style.cssText = null;
       selectedPiece.removeAttribute("style");
@@ -233,9 +239,9 @@ function movePiece(eventObj) {
       // emptyTiles = document.getElementsByClassName("emptyTile");
       // playerOnePieces = document.getElementsByClassName("playerOnePiece");
       // checkerPieces = document.getElementsByClassName("checkerPiece");
-    } else if(selectedPiece.classList.contains("playerTwoPiece")) {
-      tile.classList.add("playerTwoPiece", "checkerPiece");
-      tile.parentNode.classList.remove("emptyTile");
+    } else if(selectedPiece.classList.contains("playerTwoPiece") && (selectedPiece.parentNode.id.charAt(0) - tile.id.charAt(0) == 1)) {
+      tilePiece.classList.add("playerTwoPiece", "checkerPiece");
+      tilePiece.parentNode.classList.remove("emptyTile");
       selectedPiece.classList.remove("checkerPiece", "playerTwoPiece", "selectedPiece");
       selectedPiece.removeAttribute("style");
       selectedPiece.parentNode.classList.add("emptyTile");
