@@ -5,6 +5,8 @@ var playerOnePieces;
 var playerTwoPieces;
 var playerTurn;
 var counter = 0;
+var potentialJumpPiece;
+var jumpedCounter;
 
 window.onload = init;
 
@@ -21,6 +23,7 @@ function init() {
               ];
   var boardSize = 8;
   playerTurn = 0;
+  jumpedCounter = 0;
   var gameWinner;
   var gameOver = false;
   var p1Move;
@@ -202,17 +205,28 @@ function movePiece(eventObj) {
   var tile = event.target;
   var tilePiece = eventObj.target.children[0]; // gets the div inside the clicked tile
   var selectedPiece = document.querySelector(".selectedPiece");
+  var potentialJumpId = ((parseInt(selectedPiece.id.charAt(0)) + parseInt(tilePiece.id.charAt(0))) / 2).toString() + ((parseInt(selectedPiece.id.charAt(1)) + parseInt(tilePiece.id.charAt(1))) / 2).toString();
+  potentialJumpPiece = document.getElementById(potentialJumpId);
+  // console.log(typeof selectedPiece.id);
+  // console.log(typeof tilePiece.id.charAt(0));
+  console.log(tilePiece.id + " " + selectedPiece.id);
+  console.log(potentialJumpId);
+  console.log(typeof potentialJumpId);
+  console.log(potentialJumpPiece);
+  // console.log((parseInt(selectedPiece.id.charAt(0)) + parseInt(tilePiece.id.charAt(0))) / 2);
+  // console.log((parseInt(selectedPiece.id.charAt(1)) + parseInt(tilePiece.id.charAt(1))) / 2);
 
   // console.log(tile);
 
   if(selectedPiece != null && !selectedPiece.classList.contains("king") && !tilePiece.classList.contains("checkerPiece")) {
     // console.log(selectedPiece);
-    console.log("Target tile row: " + tilePiece.id.charAt(0));
-    console.log("Current tile row: " + selectedPiece.id.charAt(0));
-    console.log("Target tile column: " + tilePiece.id.charAt(1));
-    console.log("Current tile column " + selectedPiece.id.charAt(1));
-    console.log(tilePiece.id.charAt(0) - selectedPiece.id.charAt(0));
-    if(selectedPiece.classList.contains("playerOnePiece") && (tilePiece.id.charAt(0) - selectedPiece.id.charAt(0) == 1)) {
+    // console.log("Target tile row: " + tilePiece.id.charAt(0));
+    // console.log("Current tile row: " + selectedPiece.id.charAt(0));
+    // console.log("Target tile column: " + tilePiece.id.charAt(1));
+    // console.log("Current tile column " + selectedPiece.id.charAt(1));
+    // console.log(tilePiece.id.charAt(0) - selectedPiece.id.charAt(0));
+    // console.log(playerOnePieces);
+    if(selectedPiece.classList.contains("playerOnePiece") && (tilePiece.id.charAt(0) - selectedPiece.id.charAt(0) == 1) && ((tilePiece.id.charAt(1) - selectedPiece.id.charAt(1) == 1) || (tilePiece.id.charAt(1) - selectedPiece.id.charAt(1) == -1))) {
       if(tilePiece.id.charAt(0) == 7 && !selectedPiece.classList.contains("king")) {
         tilePiece.innerHTML += '<i class="fas fa-crown p1Crown"></i>';
         tilePiece.classList.add("king");
@@ -243,7 +257,7 @@ function movePiece(eventObj) {
       // emptyTiles = document.getElementsByClassName("emptyTile");
       // playerOnePieces = document.getElementsByClassName("playerOnePiece");
       // checkerPieces = document.getElementsByClassName("checkerPiece");
-    } else if(selectedPiece.classList.contains("playerTwoPiece") && (selectedPiece.id.charAt(0) - tilePiece.id.charAt(0) == 1)) {
+    } else if(selectedPiece.classList.contains("playerTwoPiece") && (selectedPiece.id.charAt(0) - tilePiece.id.charAt(0) == 1) && ((selectedPiece.id.charAt(1) - tilePiece.id.charAt(1) == 1) || (selectedPiece.id.charAt(1) - tilePiece.id.charAt(1) == -1))) {
       if(tilePiece.id.charAt(0) == 0 && !selectedPiece.classList.contains("king")) {
         tilePiece.innerHTML += '<i class="fas fa-crown p2Crown"></i>';
         tilePiece.classList.add("king");
@@ -272,6 +286,38 @@ function movePiece(eventObj) {
         // /
       }
       // emptyTiles = document.getElementsByClassName("emptyTile");
+    } else if(selectedPiece.classList.contains("playerTwoPiece") && (selectedPiece.id.charAt(0) - tilePiece.id.charAt(0) == 2) && potentialJumpPiece.classList.contains("playerOnePiece") && ((selectedPiece.id.charAt(1) - tilePiece.id.charAt(1) == 2) || (selectedPiece.id.charAt(1) - tilePiece.id.charAt(1) == -2))) {
+      if(tilePiece.id.charAt(0) == 0 && !selectedPiece.classList.contains("king")) {
+        tilePiece.innerHTML += '<i class="fas fa-crown p2Crown"></i>';
+        tilePiece.classList.add("king");
+      }
+      tilePiece.classList.add("playerTwoPiece", "checkerPiece");
+      tilePiece.parentNode.classList.remove("emptyTile");
+      selectedPiece.classList.remove("checkerPiece", "playerTwoPiece", "selectedPiece");
+      selectedPiece.removeAttribute("style");
+      selectedPiece.parentNode.classList.add("emptyTile");
+      potentialJumpPiece.classList.remove("checkerPiece", "playerOnePiece");
+      potentialJumpPiece.removeAttribute("style");
+      potentialJumpPiece.parentNode.classList.add("emptyTile");
+      playerTurn++;
+      jumpedCounter++;
+
+      for(var i = 0; i < movableTiles.length; i++) {
+        if(movableTiles[i].children[0].classList.contains("playerTwoPiece")) {
+          movableTiles[i].children[0].onclick = null;
+          movableTiles[i].children[0].onmouseover = null;
+          movableTiles[i].onmouseout = null;
+          movableTiles[i].onclick = null;
+        } else if(movableTiles[i].children[0].classList.contains("playerOnePiece")) {
+          movableTiles[i].children[0].onclick = selectPiece;
+          movableTiles[i].children[0].onmouseover = hoverPiece;
+          movableTiles[i].onmouseout = unhoverPiece;
+          movableTiles[i].onclick = movePiece;
+        }
+        // movableTiles[i].children[0].onclick = selectPiece;
+        // console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
+        // /
+      }
     }
   }
   console.log("movePiece iterated");
