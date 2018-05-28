@@ -207,12 +207,16 @@ function movePiece(eventObj) {
 
   if(selectedPiece != null && !selectedPiece.classList.contains("king") && !tilePiece.classList.contains("checkerPiece")) {
     // console.log(selectedPiece);
-    console.log("Target tile row: " + tile.id.charAt(0));
-    console.log("Current tile row: " + selectedPiece.parentNode.id.charAt(0));
-    console.log("Target tile column: " + tile.id.charAt(1));
-    console.log("Current tile column " + selectedPiece.parentNode.id.charAt(1));
-    console.log(tile.id.charAt(0) - selectedPiece.parentNode.id.charAt(0));
-    if(selectedPiece.classList.contains("playerOnePiece") && (tile.id.charAt(0) - selectedPiece.parentNode.id.charAt(0) == 1)) {
+    console.log("Target tile row: " + tilePiece.id.charAt(0));
+    console.log("Current tile row: " + selectedPiece.id.charAt(0));
+    console.log("Target tile column: " + tilePiece.id.charAt(1));
+    console.log("Current tile column " + selectedPiece.id.charAt(1));
+    console.log(tilePiece.id.charAt(0) - selectedPiece.id.charAt(0));
+    if(selectedPiece.classList.contains("playerOnePiece") && (tilePiece.id.charAt(0) - selectedPiece.id.charAt(0) == 1)) {
+      if(tilePiece.id.charAt(0) == 7 && !selectedPiece.classList.contains("king")) {
+        tilePiece.innerHTML += '<i class="fas fa-crown p1Crown"></i>';
+        tilePiece.classList.add("king");
+      }
       tilePiece.classList.add("playerOnePiece", "checkerPiece");
       tilePiece.parentNode.classList.remove("emptyTile");
       selectedPiece.classList.remove("checkerPiece", "playerOnePiece", "selectedPiece");
@@ -239,7 +243,11 @@ function movePiece(eventObj) {
       // emptyTiles = document.getElementsByClassName("emptyTile");
       // playerOnePieces = document.getElementsByClassName("playerOnePiece");
       // checkerPieces = document.getElementsByClassName("checkerPiece");
-    } else if(selectedPiece.classList.contains("playerTwoPiece") && (selectedPiece.parentNode.id.charAt(0) - tile.id.charAt(0) == 1)) {
+    } else if(selectedPiece.classList.contains("playerTwoPiece") && (selectedPiece.id.charAt(0) - tilePiece.id.charAt(0) == 1)) {
+      if(tilePiece.id.charAt(0) == 0 && !selectedPiece.classList.contains("king")) {
+        tilePiece.innerHTML += '<i class="fas fa-crown p2Crown"></i>';
+        tilePiece.classList.add("king");
+      }
       tilePiece.classList.add("playerTwoPiece", "checkerPiece");
       tilePiece.parentNode.classList.remove("emptyTile");
       selectedPiece.classList.remove("checkerPiece", "playerTwoPiece", "selectedPiece");
