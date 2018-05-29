@@ -7,6 +7,7 @@ var playerTurn;
 var counter = 0;
 var potentialJumpPiece;
 var jumpedCounter;
+var potentialJumpId;
 
 window.onload = init;
 
@@ -62,7 +63,7 @@ function init() {
 
   for(var i = 0; i < movableTiles.length; i++) {
     movableTiles[i].children[0].onclick = selectPiece;
-    console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
+    // console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
   }
   for(var i = 0; i < movableTiles.length; i++) {
     movableTiles[i].children[0].onmouseover = hoverPiece;
@@ -205,14 +206,20 @@ function movePiece(eventObj) {
   var tile = event.target;
   var tilePiece = eventObj.target.children[0]; // gets the div inside the clicked tile
   var selectedPiece = document.querySelector(".selectedPiece");
-  var potentialJumpId = ((parseInt(selectedPiece.id.charAt(0)) + parseInt(tilePiece.id.charAt(0))) / 2).toString() + ((parseInt(selectedPiece.id.charAt(1)) + parseInt(tilePiece.id.charAt(1))) / 2).toString();
-  potentialJumpPiece = document.getElementById(potentialJumpId);
+  potentialJumpId = ((parseInt(selectedPiece.id.charAt(0)) + parseInt(tilePiece.id.charAt(0))) / 2).toString() + ((parseInt(selectedPiece.id.charAt(1)) + parseInt(tilePiece.id.charAt(1))) / 2).toString();
+
+  for(var i = 0; i < movableTiles.length; i++) {
+    if(movableTiles[i].children[0].id == potentialJumpId) {
+      potentialJumpPiece = movableTiles[i].children[0];
+    }
+  }
+  // potentialJumpPiece = document.getElementById(potentialJumpId);
+  // potentialJumpPiece = document.querySelector("[id=" + CSS.escape(potentialJumpId) + "]");
+
+  // console.log(pote);
   // console.log(typeof selectedPiece.id);
   // console.log(typeof tilePiece.id.charAt(0));
-  console.log(tilePiece.id + " " + selectedPiece.id);
-  console.log(potentialJumpId);
-  console.log(typeof potentialJumpId);
-  console.log(potentialJumpPiece);
+  // console.log("id=potentialJumpPiece");
   // console.log((parseInt(selectedPiece.id.charAt(0)) + parseInt(tilePiece.id.charAt(0))) / 2);
   // console.log((parseInt(selectedPiece.id.charAt(1)) + parseInt(tilePiece.id.charAt(1))) / 2);
 
@@ -296,9 +303,11 @@ function movePiece(eventObj) {
       selectedPiece.classList.remove("checkerPiece", "playerTwoPiece", "selectedPiece");
       selectedPiece.removeAttribute("style");
       selectedPiece.parentNode.classList.add("emptyTile");
-      potentialJumpPiece.classList.remove("checkerPiece", "playerOnePiece");
-      potentialJumpPiece.removeAttribute("style");
-      potentialJumpPiece.parentNode.classList.add("emptyTile");
+
+      // potentialJumpPiece.classList.remove("checkerPiece", "playerOnePiece");
+      // potentialJumpPiece = null;
+      // potentialJumpPiece.removeAttribute("style");
+      // potentialJumpPiece.parentNode.classList.add("emptyTile");
       playerTurn++;
       jumpedCounter++;
 
@@ -313,6 +322,9 @@ function movePiece(eventObj) {
           movableTiles[i].children[0].onmouseover = hoverPiece;
           movableTiles[i].onmouseout = unhoverPiece;
           movableTiles[i].onclick = movePiece;
+        }
+        if(movableTiles[i].children[0].id == potentialJumpId) {
+          movableTiles[i].children[0].classList.remove("checkerPiece", "playerOnePiece");
         }
         // movableTiles[i].children[0].onclick = selectPiece;
         // console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
