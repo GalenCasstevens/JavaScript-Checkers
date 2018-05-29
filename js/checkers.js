@@ -208,11 +208,14 @@ function movePiece(eventObj) {
   var selectedPiece = document.querySelector(".selectedPiece");
   potentialJumpId = ((parseInt(selectedPiece.id.charAt(0)) + parseInt(tilePiece.id.charAt(0))) / 2).toString() + ((parseInt(selectedPiece.id.charAt(1)) + parseInt(tilePiece.id.charAt(1))) / 2).toString();
 
+  console.log(movableTiles);
+
   for(var i = 0; i < movableTiles.length; i++) {
     if(movableTiles[i].children[0].id == potentialJumpId) {
       potentialJumpPiece = movableTiles[i].children[0];
     }
   }
+  console.log(potentialJumpPiece);
   // potentialJumpPiece = document.getElementById(potentialJumpId);
   // potentialJumpPiece = document.querySelector("[id=" + CSS.escape(potentialJumpId) + "]");
 
@@ -264,6 +267,45 @@ function movePiece(eventObj) {
       // emptyTiles = document.getElementsByClassName("emptyTile");
       // playerOnePieces = document.getElementsByClassName("playerOnePiece");
       // checkerPieces = document.getElementsByClassName("checkerPiece");
+    } else if(selectedPiece.classList.contains("playerOnePiece") && (tilePiece.id.charAt(0) - selectedPiece.id.charAt(0) == 2) && potentialJumpPiece.classList.contains("playerTwoPiece") && ((tilePiece.id.charAt(1) - selectedPiece.id.charAt(1) == 2) || (tilePiece.id.charAt(1) - selectedPiece.id.charAt(1) == -2))) {
+      if(tilePiece.id.charAt(0) == 0 && !selectedPiece.classList.contains("king")) {
+        tilePiece.innerHTML += '<i class="fas fa-crown p1Crown"></i>';
+        tilePiece.classList.add("king");
+      }
+      tilePiece.classList.add("playerOnePiece", "checkerPiece");
+      tilePiece.parentNode.classList.remove("emptyTile");
+      selectedPiece.classList.remove("checkerPiece", "playerOnePiece", "selectedPiece");
+      selectedPiece.removeAttribute("style");
+      selectedPiece.parentNode.classList.add("emptyTile");
+      // potentialJumpPiece.classList.remove("checkerPiece", "playerOnePiece")
+      // potentialJumpPiece.classList.remove("checkerPiece", "playerOnePiece");
+      // potentialJumpPiece = null;
+      // potentialJumpPiece.removeAttribute("style");
+      // potentialJumpPiece.parentNode.classList.add("emptyTile");
+      playerTurn++;
+      jumpedCounter++;
+
+      for(var i = 0; i < movableTiles.length; i++) {
+        if(movableTiles[i].children[0].classList.contains("playerOnwPiece")) {
+          movableTiles[i].children[0].onclick = null;
+          movableTiles[i].children[0].onmouseover = null;
+          movableTiles[i].onmouseout = null;
+          movableTiles[i].onclick = null;
+        } else if(movableTiles[i].children[0].classList.contains("playerTwoPiece")) {
+          movableTiles[i].children[0].onclick = selectPiece;
+          movableTiles[i].children[0].onmouseover = hoverPiece;
+          movableTiles[i].onmouseout = unhoverPiece;
+          movableTiles[i].onclick = movePiece;
+        }
+        if(movableTiles[i].children[0].id == potentialJumpId) {
+          movableTiles[i].children[0].classList.remove("checkerPiece", "playerTwoPiece");
+          movableTiles[i].children[0].removeAttribute("style");
+          movableTiles[i].classList.add("emptyTile");
+        }
+        // movableTiles[i].children[0].onclick = selectPiece;
+        // console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
+        // /
+      }
     } else if(selectedPiece.classList.contains("playerTwoPiece") && (selectedPiece.id.charAt(0) - tilePiece.id.charAt(0) == 1) && ((selectedPiece.id.charAt(1) - tilePiece.id.charAt(1) == 1) || (selectedPiece.id.charAt(1) - tilePiece.id.charAt(1) == -1))) {
       if(tilePiece.id.charAt(0) == 0 && !selectedPiece.classList.contains("king")) {
         tilePiece.innerHTML += '<i class="fas fa-crown p2Crown"></i>';
@@ -303,7 +345,7 @@ function movePiece(eventObj) {
       selectedPiece.classList.remove("checkerPiece", "playerTwoPiece", "selectedPiece");
       selectedPiece.removeAttribute("style");
       selectedPiece.parentNode.classList.add("emptyTile");
-
+      // potentialJumpPiece.classList.remove("checkerPiece", "playerOnePiece")
       // potentialJumpPiece.classList.remove("checkerPiece", "playerOnePiece");
       // potentialJumpPiece = null;
       // potentialJumpPiece.removeAttribute("style");
@@ -325,6 +367,8 @@ function movePiece(eventObj) {
         }
         if(movableTiles[i].children[0].id == potentialJumpId) {
           movableTiles[i].children[0].classList.remove("checkerPiece", "playerOnePiece");
+          movableTiles[i].children[0].removeAttribute("style");
+          movableTiles[i].classList.add("emptyTile");
         }
         // movableTiles[i].children[0].onclick = selectPiece;
         // console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
@@ -333,6 +377,7 @@ function movePiece(eventObj) {
     }
   }
   console.log("movePiece iterated");
+  // for(var i = 0; i <)
 }
 
 function displayBoard(board, boardSize) {

@@ -18,6 +18,10 @@ td {
   height: 120px;
   width: 120px;
 }
+/* td.emptyTile {
+  width: 130px;
+  height: 120px;
+} */
 td.black {
   background-color: #000;
 }
@@ -40,6 +44,15 @@ td div.playerTwoPiece {
   -moz-border-radius: 45px;
   border-radius: 45px;
   background: #666666;
+  margin: auto;
+}
+td div.fillerPiece {
+  width: 90px;
+  height: 90px;
+  -webkit-border-radius: 45px;
+  -moz-border-radius: 45px;
+  border-radius: 45px;
+  background: #FFFFFF;
   margin: auto;
 }
 /* td div.playerOnePiece:hover, td div.playerTwoPiece:hover {
