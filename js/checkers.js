@@ -433,7 +433,59 @@ function movePiece(eventObj) {
       }
     }
   } else if(selectedPiece != null && selectedPiece.classList.contains("king") && !tilePiece.classList.contains("checkerPiece")) {
-
+    if(selectedPiece.classList.contains("playerOnePiece") && (tilePiece.id.charAt(0) - selectedPiece.id.charAt(0) == 1 || tilePiece.id.charAt(0) - selectedPiece.id.charAt(0) == -1) && ((tilePiece.id.charAt(1) - selectedPiece.id.charAt(1) == 1) || (tilePiece.id.charAt(1) - selectedPiece.id.charAt(1) == -1))) {
+      tilePiece.classList.add("playerOnePiece", "checkerPiece", "king");
+      tilePiece.parentNode.classList.remove("emptyTile");
+      tilePiece.innerHTML = selectedPiece.innerHTML;
+      selectedPiece.classList.remove("checkerPiece", "playerOnePiece", "selectedPiece", "king");
+      // selectedPiece.style.cssText = null;
+      selectedPiece.removeAttribute("style");
+      selectedPiece.parentNode.classList.add("emptyTile");
+      selectedPiece.innerHTML = null;
+      playerTurn++;
+      for(var i = 0; i < movableTiles.length; i++) {
+        if(movableTiles[i].children[0].classList.contains("playerOnePiece")) {
+            movableTiles[i].children[0].onclick = null;
+            movableTiles[i].children[0].onmouseover = null;
+            movableTiles[i].onmouseout = null;
+            // movableTiles[i].onclick = null;
+        } else if(movableTiles[i].children[0].classList.contains("playerTwoPiece")) {
+          movableTiles[i].children[0].onclick = selectPiece;
+          movableTiles[i].children[0].onmouseover = hoverPiece;
+          movableTiles[i].onmouseout = unhoverPiece;
+          // movableTiles[i].onclick = movePiece;
+        }
+        // movableTiles[i].children[0].onclick = selectPiece;
+        // console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
+        // /
+      }
+    } else if(selectedPiece.classList.contains("playerTwoPiece") && (tilePiece.id.charAt(0) - selectedPiece.id.charAt(0) == 1 || tilePiece.id.charAt(0) - selectedPiece.id.charAt(0) == -1) && ((tilePiece.id.charAt(1) - selectedPiece.id.charAt(1) == 1) || (tilePiece.id.charAt(1) - selectedPiece.id.charAt(1) == -1))) {
+      tilePiece.classList.add("playerTwoPiece", "checkerPiece", "king");
+      tilePiece.parentNode.classList.remove("emptyTile");
+      tilePiece.innerHTML = selectedPiece.innerHTML;
+      selectedPiece.classList.remove("checkerPiece", "playerTwoPiece", "selectedPiece", "king");
+      // selectedPiece.style.cssText = null;
+      selectedPiece.removeAttribute("style");
+      selectedPiece.parentNode.classList.add("emptyTile");
+      selectedPiece.innerHTML = null;
+      playerTurn++;
+      for(var i = 0; i < movableTiles.length; i++) {
+        if(movableTiles[i].children[0].classList.contains("playerTwoPiece")) {
+            movableTiles[i].children[0].onclick = null;
+            movableTiles[i].children[0].onmouseover = null;
+            movableTiles[i].onmouseout = null;
+            // movableTiles[i].onclick = null;
+        } else if(movableTiles[i].children[0].classList.contains("playerOnePiece")) {
+          movableTiles[i].children[0].onclick = selectPiece;
+          movableTiles[i].children[0].onmouseover = hoverPiece;
+          movableTiles[i].onmouseout = unhoverPiece;
+          // movableTiles[i].onclick = movePiece;
+        }
+        // movableTiles[i].children[0].onclick = selectPiece;
+        // console.log(movableTiles[i].children[0].classList.contains("playerOnePiece"));
+        // /
+      }
+    }
   }
   console.log("movePiece iterated");
 }
